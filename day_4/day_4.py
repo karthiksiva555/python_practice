@@ -30,6 +30,10 @@ print(fruits) # ['Kiwi', 'Papaya', 'Pear', 'Orange']
 fruits.extend(["f1", "f2"])
 print(fruits) # ['Kiwi', 'Papaya', 'Pear', 'Orange', 'f1', 'f2']
 
+index = fruits.index("Pear")
+print(f"Pear is found at position {index}")
+# fruits.index("Unknown") # ValueError: 'Unknown' is not in list
+
 # Index Error
 #print(fruits[10])
 
