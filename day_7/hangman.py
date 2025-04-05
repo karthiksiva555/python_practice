@@ -1,13 +1,12 @@
 import random
 import hangman_ascii_art
+import hangman_words
 
 
 print(hangman_ascii_art.logo)
 print("Welcome to the hangman game!")
 
-# select a set of words
-words = ["natural", "care", "elegant", "avengers", "macbook", "badminton", "cricket"]
-selected_word = random.choice(words)
+selected_word = random.choice(hangman_words.word_list)
 
 
 def get_updated_placeholder(chosen_word, guess_char, placeholder_string):
@@ -25,9 +24,11 @@ print(f"{placeholder}")
 game_over = False
 
 while not game_over:
-    guess = input("Enter your guess: ")
+    guess = input("Enter your guess: ").lower()
     decision = ""
-    if guess in selected_word:
+    if guess in placeholder:
+        decision = "already made, try a new character"
+    elif guess in selected_word:
         placeholder = get_updated_placeholder(selected_word, guess, placeholder)
         decision = "right"
     else:
@@ -36,13 +37,13 @@ while not game_over:
     game_over = lives == 0 or "_" not in placeholder
 
     if not game_over:
-        print(f"Your guess was {decision}, you have {lives}/6 lives")
+        print(f"Your guess was {decision}. You have {lives}/6 lives.")
 
     print(f"{hangman_ascii_art.stages[lives]}")
     print(placeholder)
 
 
 if lives == 0:
-    print("You ran out of lives, you lose")
+    print("You ran out of lives, you lose.")
 else:
     print("You have guessed the word right! You win.")
