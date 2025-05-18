@@ -43,10 +43,41 @@ def is_prime(num):
     print(f"looping till {sqrt_num}")
     for i in range(5, sqrt_num, 6):
         print(f"checking {i} or {i+2} is a divisor for {num}")
-        if n % i == 0 or n % (i+2) == 0:
+        if num % i == 0 or num % (i+2) == 0:
             return False
 
     return True
 
 n = 523
 print(f"{n} is a prime number: {is_prime(n)}")
+
+sold_cars = 10
+
+# bad practice
+def sell_car():
+    global sold_cars
+    sold_cars += 1
+
+sell_car()
+print(sold_cars)
+
+# good practice
+def increment_sold_cars():
+    global sold_cars
+    sold_cars += 1
+
+def sell_car_good():
+    increment_sold_cars()
+    print("a new car is sold")
+
+sell_car_good()
+print(sold_cars)
+
+# global constants
+BASE_URL = "https://example.com"
+PI = 3.14159
+
+
+
+
+
