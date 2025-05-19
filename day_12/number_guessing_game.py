@@ -1,4 +1,4 @@
-import random
+from random import randint
 from number_guessing_ascii_art import logo
 
 EASY_LEVEL_CHANCES = 10
@@ -22,35 +22,38 @@ def get_chances():
 
 
 def get_target():
-    return random.randint(1, 100)
+    return randint(1, 100)
+
+
+def check_answer(guess, target, chances):
+    if guess == target:
+        print(f"Your guess {target} is correct, You win!")
+    elif guess < target:
+        print("Too low.")
+    else:
+        print("Too high.")
+
+    return 0 if guess == target else chances - 1
 
 
 def guess_the_number(target, chances):
-    attempt = 1
 
-    while attempt <= chances:
-        print(f"You have {chances - attempt + 1} attempts remaining.")
+    while  chances > 0:
+        print(f"You have {chances} attempts remaining.")
         guess = int(input("Make a guess: "))
-        if guess == target:
-            print(f"Your guess {target} is correct, You win!")
-            break
-        if guess < target:
-            print("Too low.")
-        else:
-            print("Too high.")
+        chances = check_answer(guess, target, chances)
 
-        if attempt == chances:
-            print("You have run out of chances. Try again!")
-        else:
+        if chances > 0:
             print("Guess again.")
-
-        attempt += 1
+        elif guess != target:
+            print("You have run out of chances. Try again!")
 
 
 def start_number_guessing_game():
     welcome_the_user()
     chances = get_chances()
     target = get_target()
+    print(f"The target is {target}")
     guess_the_number(target, chances)
 
 
