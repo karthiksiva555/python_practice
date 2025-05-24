@@ -1,22 +1,7 @@
 from art import logo, coffee
-# fill resources in coffee machine
+from coffee_machine_data import *
 
-# prepare coffee data: milk, water, sugar and cost
-
-# count coins and give change
-
-# dispense requested drink and deduct from resources
-
-COFFEE_KEY_NAME_MAP = { 'c': "cappuccino", 'e': "espresso", 'l': "latte" }
 RESOURCES = { 'milk': 0, 'water': 0, 'coffee': 0, 'money': 0 }
-WATER = 'water'
-COFFEE = 'coffee'
-MILK = 'milk'
-MONEY = 'money'
-COFFEE_REFILL_AMOUNT = 300
-WATER_REFILL_AMOUNT = 1000
-MILK_REFILL_AMOUNT = 500
-
 
 def show_welcome_message():
     print(coffee)
@@ -25,9 +10,11 @@ def show_welcome_message():
 
 
 def get_user_order():
-    order = input("What would you like? 'c' for Cappuccino, 'e' for Espresso and 'l' for Latte: ").lower()
+    order = input("What would you like? 'c' for Cappuccino, 'e' for Espresso, 'l' for Latte (type ex to exit): ").lower()
     if order == 'c' or order == 'e' or order == 'l':
         return COFFEE_KEY_NAME_MAP[order]
+    elif order == 'ex':
+        return 'exit'
     print(f"Your input {order} is not valid")
     return get_user_order()
 
@@ -53,12 +40,31 @@ def show_report():
     resources = RESOURCES
     print(f"Coffee: {resources[COFFEE]}, Milk: {resources[MILK]}, Water: {resources[WATER]}, Money: {resources[MONEY]}")
 
+
+def are_resources_enough(order):
+    order_ingredients = MENU[order][INGREDIENTS]
+    print(order_ingredients)
+    for ingredient in order_ingredients:
+        if RESOURCES[ingredient] < order_ingredients[ingredient]:
+            print(f"There is not enough {ingredient}. Please refill the machine.")
+            return False
+    return True
+
+
 def turn_on_coffee_machine():
     add_resources_to_machine()
     show_welcome_message()
     show_report()
-    order = get_user_order()
-    print(order)
+    take_order = True
 
+    while take_order:
+        order = get_user_order()
+        if order == 'exit':
+            print(f"See you next time!")
+            take_order = False
+        elif not are_resources_enough(order):
+            add_resources_to_machine()
+        else:
+            print("get money")
 
 turn_on_coffee_machine()
