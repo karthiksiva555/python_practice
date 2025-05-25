@@ -10,11 +10,9 @@ def show_welcome_message():
 
 
 def get_user_order():
-    order = input("What would you like? 'c' for Cappuccino, 'e' for Espresso, 'l' for Latte (type ex to exit): ").lower()
+    order = input("What would you like? 'c' for Cappuccino, 'e' for Espresso, 'l' for Latte: ").lower()
     if order == 'c' or order == 'e' or order == 'l':
         return COFFEE_KEY_NAME_MAP[order]
-    elif order == 'ex':
-        return 'exit'
     print(f"Your input {order} is not valid")
     return get_user_order()
 
@@ -51,6 +49,39 @@ def are_resources_enough(order):
     return True
 
 
+def get_money_from_user(seed_money):
+    if seed_money > 0:
+        print(f"Current total: ${seed_money}")
+    nickels = int(input("Enter the number if Nickels: "))
+    dimes = int(input("Enter the number of dimes: "))
+    quarters = int(input("Enter the number of quarters: "))
+    dollars = int(input("Enter the number of dollars: "))
+    total_money = seed_money + dollars + (quarters / 4) + (dimes / 10) + (nickels / 20)
+    return round(total_money, 2)
+
+
+def process_money(order):
+    order_price = MENU[order][PRICE]
+    print(f"The price of {order} is ${order_price}.")
+    total_money = get_money_from_user(0.0)
+
+    while total_money < order_price:
+        print(f"You are {round(order_price - total_money, 2)} short to buy {order}. Insert more coins.")
+        total_money = get_money_from_user(total_money)
+
+    if total_money > order_price:
+        print(f"Please collect your change: ${round(total_money - order_price, 2)}")
+
+
+def get_order():
+    order = get_user_order()
+    if not are_resources_enough(order):
+        add_resources_to_machine()
+    else:
+        process_money(order)
+        print(f"Enjoy Your {order}!")
+
+
 def turn_on_coffee_machine():
     add_resources_to_machine()
     show_welcome_message()
@@ -58,13 +89,9 @@ def turn_on_coffee_machine():
     take_order = True
 
     while take_order:
-        order = get_user_order()
-        if order == 'exit':
-            print(f"See you next time!")
-            take_order = False
-        elif not are_resources_enough(order):
-            add_resources_to_machine()
-        else:
-            print("get money")
+        get_order()
+        take_order = input("Continue with next order? (y for Yes, n for no): ").lower() == 'y'
+        if not take_order:
+            print("See you next time!")
 
 turn_on_coffee_machine()
