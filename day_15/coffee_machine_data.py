@@ -5,9 +5,7 @@ MILK = 'milk'
 PRICE = 'price'
 MONEY = 'money'
 INGREDIENTS = 'ingredients'
-COFFEE_REFILL_AMOUNT = 300
-WATER_REFILL_AMOUNT = 1000
-MILK_REFILL_AMOUNT = 500
+REFILL_AMOUNT = { WATER: 1000, MILK: 500, COFFEE: 200}
 
 MENU = {
     "espresso": {

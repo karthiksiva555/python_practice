@@ -29,10 +29,17 @@ def add_resource(ingredient, amount):
 
 
 def add_resources_to_machine():
-    add_resource(WATER, WATER_REFILL_AMOUNT)
-    add_resource(MILK, MILK_REFILL_AMOUNT)
-    add_resource(COFFEE, COFFEE_REFILL_AMOUNT)
+    add_resource(WATER, REFILL_AMOUNT[WATER])
+    add_resource(MILK, REFILL_AMOUNT[MILK])
+    add_resource(COFFEE, REFILL_AMOUNT[COFFEE])
 
+
+def add_resources_for_order(order):
+    order_ingredients = MENU[order][INGREDIENTS]
+    for ingredient in order_ingredients:
+        if RESOURCES[ingredient] < order_ingredients[ingredient]:
+            print(f"Refilling {ingredient}...")
+            add_resource(ingredient, REFILL_AMOUNT[ingredient])
 
 def show_report():
     resources = RESOURCES
@@ -60,6 +67,10 @@ def get_money_from_user(seed_money):
     return round(total_money, 2)
 
 
+def add_money_to_till(money):
+    add_resource(MONEY, money)
+
+
 def process_money(order):
     order_price = MENU[order][PRICE]
     print(f"The price of {order} is ${order_price}.")
@@ -72,14 +83,23 @@ def process_money(order):
     if total_money > order_price:
         print(f"Please collect your change: ${round(total_money - order_price, 2)}")
 
+    add_money_to_till(order_price)
+
+def update_resources(order):
+    order_ingredients = MENU[order][INGREDIENTS]
+    for ingredient in order_ingredients:
+        add_resource(ingredient, -order_ingredients[ingredient])
+
 
 def get_order():
     order = get_user_order()
-    if not are_resources_enough(order):
-        add_resources_to_machine()
-    else:
-        process_money(order)
-        print(f"Enjoy Your {order}!")
+
+    while not are_resources_enough(order):
+        add_resources_for_order(order)
+
+    process_money(order)
+    update_resources(order)
+    print(f"Enjoy Your {order}!")
 
 
 def turn_on_coffee_machine():
