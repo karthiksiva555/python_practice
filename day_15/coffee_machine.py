@@ -75,6 +75,7 @@ def process_money(order):
     order_price = MENU[order][PRICE]
     print(f"The price of {order} is ${order_price}.")
     total_money = get_money_from_user(0.0)
+    print(f"The total money received: {total_money}")
 
     while total_money < order_price:
         print(f"You are {round(order_price - total_money, 2)} short to buy {order}. Insert more coins.")
@@ -105,13 +106,18 @@ def get_order():
 def turn_on_coffee_machine():
     add_resources_to_machine()
     show_welcome_message()
-    show_report()
     take_order = True
 
     while take_order:
-        get_order()
-        take_order = input("Continue with next order? (y for Yes, n for no): ").lower() == 'y'
-        if not take_order:
+        choice = input("Please enter your choice: o for order, r for report: ").lower()
+        if choice == "off":
+            take_order = False
             print("See you next time!")
+        elif choice == "r":
+            show_report()
+        elif choice == "o":
+            get_order()
+        else:
+            print(f"Your input {choice} is not valid. Please try again.")
 
 turn_on_coffee_machine()
