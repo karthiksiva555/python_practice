@@ -3,6 +3,8 @@ from prettytable import PrettyTable
 # Using Turtle and Screen classes
 from turtle import Turtle, Screen
 
+from employee import Employee
+
 tommy = Turtle()
 print(tommy)
 tommy.shape('turtle')
@@ -29,6 +31,17 @@ table.add_row(["Sydney", 2058, 4336374, 1214.8])
 table.add_row(["Melbourne", 1566, 3806092, 646.9])
 table.add_row(["Perth", 5386, 1554769, 869.4])
 print(table)
+
+# create employee object
+robert = Employee("robert")
+robert.first_name = "Robert"
+print(robert.first_name)
+try:
+    robert.first_name = ""
+    print(robert.first_name)
+except ValueError as ex:
+    print(ex)
+
 
 
 
