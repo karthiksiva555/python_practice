@@ -1,19 +1,18 @@
 from prettytable import PrettyTable
-
 # Using Turtle and Screen classes
 from turtle import Turtle, Screen
-
 from employee import Employee
 
-tommy = Turtle()
-print(tommy)
-tommy.shape('turtle')
-tommy.color("cyan")
 
-my_screen = Screen()
-print(my_screen.canvwidth)
-my_screen.canvwidth = 400
-my_screen.exitonclick()
+# tommy = Turtle()
+# print(tommy)
+# tommy.shape('turtle')
+# tommy.color("cyan")
+#
+# my_screen = Screen()
+# print(my_screen.canvwidth)
+# my_screen.canvwidth = 400
+# my_screen.exitonclick()
 
 #installing PrettyTable package from PyPi (Python Package Index)
 table = PrettyTable()
@@ -41,6 +40,24 @@ try:
     print(robert.first_name)
 except ValueError as ex:
     print(ex)
+
+
+class Employee:
+    def __init__(self, name, number):
+        self.name = name
+        self.number = number
+
+employees = [
+    Employee("Ram", 123),
+    Employee("John", 234)
+]
+
+employee_ram_exists = any("Ram" == employee.name for employee in employees)
+print(employee_ram_exists)
+employee_ram = next((employee for employee in employees if employee.name == "Ram"), None)
+print(f"{employee_ram.name}, {employee_ram.number}")
+
+
 
 
 
