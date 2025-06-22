@@ -34,7 +34,7 @@ class Resources:
 
 
     def show_report(self):
-        print(f"Coffee: {self.coffee}, Milk: {self.milk}, Water: {self.water}.")
+        print(f"Coffee: {self.coffee}g, Milk: {self.milk}ml, Water: {self.water}ml.")
 
 
     def are_resources_enough(self, drink: MenuItem):

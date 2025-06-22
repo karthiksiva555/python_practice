@@ -1,10 +1,9 @@
 from day_16.coffee_machine_oop.menu import Menu
 from day_16.coffee_machine_oop.money_machine import MoneyMachine
 from day_16.coffee_machine_oop.resources import Resources
-from art import logo, coffee
+from art import logo, coffee_mug
 
 class CoffeeMachine:
-
 
     def __init__(self):
         self._on = False
@@ -27,7 +26,7 @@ class CoffeeMachine:
 
     @staticmethod
     def show_welcome():
-        print(coffee)
+        print(coffee_mug)
         print(logo)
 
 
@@ -52,17 +51,17 @@ class CoffeeMachine:
             print(ex)
 
 
-    def make_order(self, drink_code):
-        drink = self.menu.get_menu_item_by_code(drink_code)
+    def make_order(self, coffee_code):
+        coffee = self.menu.get_menu_item_by_code(coffee_code)
 
-        if not self.resources.are_resources_enough(drink):
-            print(f"The resources are not enough to make {drink.name}")
-            self.resources.refill_resources(drink)
+        if not self.resources.are_resources_enough(coffee):
+            print(f"The resources are not enough to make {coffee.name}")
+            self.resources.refill_resources(coffee)
 
-        print(f"Please insert ${drink.cost} to complete the order for {drink.name}.")
-        self.money_machine.process_money(drink.name, drink.cost)
-        self.resources.update_resources_after_order(drink)
-        print(f"Making {drink.name}... Enjoy your drink!")
+        print(f"Please insert ${coffee.cost} to complete the order for {coffee.name}.")
+        self.money_machine.process_money(coffee.name, coffee.cost)
+        self.resources.update_resources_after_order(coffee)
+        print(f"Here is your {coffee.name}. Enjoy!")
 
 
     def get_user_choice(self):
