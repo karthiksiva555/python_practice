@@ -56,9 +56,3 @@ employee_ram_exists = any("Ram" == employee.name for employee in employees)
 print(employee_ram_exists)
 employee_ram = next((employee for employee in employees if employee.name == "Ram"), None)
 print(f"{employee_ram.name}, {employee_ram.number}")
-
-
-
-
-
-
