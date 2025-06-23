@@ -21,3 +21,6 @@ class QuestionList:
         for random_question in random_list:
             question = Question(random_question["question"], random_question["correct_answer"])
             self.questions.append(question)
+
+    def get_question_by_index(self, index):
+        return self.questions[index]
