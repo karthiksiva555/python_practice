@@ -1,35 +1,5 @@
+import turtle
 from turtle import Turtle, Screen
-import random
-
-timmy = Turtle()
-timmy.shape("turtle")
-timmy.color("red")
-
-# draw a square
-# for _ in range(4):
-#     timmy.forward(100)
-#     timmy.right(90)
-
-# draw a dashed line
-# for _ in range(15):
-#     timmy.forward(10)
-#     timmy.penup()
-#     timmy.forward(10)
-#     timmy.pendown()
-
-# draw different shapes
-colors = ['red', 'royal blue', 'green', 'yellow', 'black']
-for sides in range(3, 11):
-    degrees = 360/sides
-    colour = random.choice(colors)
-    timmy.color(colour)
-
-    for _ in range(sides):
-        timmy.forward(50)
-        timmy.right(degrees)
-
-screen = Screen()
-screen.exitonclick()
 
 # 3 ways of importing
 # 1. import <package> and then <package>.class_name
@@ -38,7 +8,8 @@ num = random.randint(1, 10)
 
 # 2. from <package> import class_name
 from math import isnan
-is_num = isnan("10")
+not_num = 10
+is_num = isnan(not_num)
 
 # 3. from <package> import *
 # not recommended as it is going to import everything in the package
@@ -48,4 +19,99 @@ is_num = isnan("10")
 
 # use pip install <package_name> to install external packages
 
+# Turtle challenges
+turtle.colormode(255)
+timmy = Turtle()
+timmy.shape("turtle")
+timmy.color("red")
+
+screen = Screen()
+screen.setup(800, 600)
+
+def draw_square():
+    for _ in range(4):
+        timmy.forward(100)
+        timmy.right(90)
+
+# draw a dashed line
+def draw_dashed_line():
+    for _ in range(15):
+        timmy.forward(10)
+        timmy.penup()
+        timmy.forward(10)
+        timmy.pendown()
+
+# draw different shapes
+def draw_different_shapes():
+    colors = ['red', 'royal blue', 'green', 'yellow', 'black']
+    for sides in range(3, 11):
+        degrees = 360/sides
+        colour = random.choice(colors)
+        timmy.color(colour)
+
+        for _ in range(sides):
+            timmy.forward(50)
+            timmy.right(degrees)
+
+def random_colour():
+    """ Explains the usage of Tuple
+    returns a random RGB colour each time called"""
+    r = random.randint(1, 255)
+    g = random.randint(1, 255)
+    b = random.randint(1, 255)
+
+    return r, g, b
+
+# random walk
+def start_random_walk():
+    # colors = ['red', 'royal blue', 'green', 'gold', 'black', 'light cyan', 'deep sky blue', 'green yellow']
+    degrees = [0, 90, 180, 270]
+    timmy.pensize(10)
+    timmy.speed(10)
+
+    for _ in range(100):
+        # timmy.color(random.choice(colors))
+        timmy.color(random_colour())
+        timmy.forward(20)
+        # timmy.right(random.choice(degrees))
+        timmy.setheading(random.choice(degrees))
+
+# draw Spirograph
+def draw_spirograph():
+    timmy.speed("fastest")
+    for _ in range(100):
+        timmy.color(random_colour())
+        timmy.circle(100)
+        timmy.setheading(timmy.heading()+10)
+
+def start_at_left_bottom():
+    left = screen.window_width() // -2
+    bottom = screen.window_height() // -2
+    timmy.goto(left+50, bottom+50)
+
+def go_to_one_row_above():
+    current_y = timmy.position()[1]
+    left = screen.window_width() // -2
+    timmy.goto(left+50, current_y+50)
+
+def draw_row():
+    x, y = timmy.position()
+    right_limit = screen.window_width() // 2
+    print(right_limit)
+    while x < right_limit:
+        timmy.dot(20, random_colour())
+        timmy.forward(50)
+        x = timmy.position()[0]
+
+def damien_hirst_painting():
+    timmy.penup()
+    start_at_left_bottom()
+    for _ in range(10):
+        draw_row()
+        go_to_one_row_above()
+
+damien_hirst_painting()
+
+turtle.done()
+screen.exitonclick()
 
