@@ -84,34 +84,7 @@ def draw_spirograph():
         timmy.circle(100)
         timmy.setheading(timmy.heading()+10)
 
-def start_at_left_bottom():
-    left = screen.window_width() // -2
-    bottom = screen.window_height() // -2
-    timmy.goto(left+50, bottom+50)
+draw_spirograph()
 
-def go_to_one_row_above():
-    current_y = timmy.position()[1]
-    left = screen.window_width() // -2
-    timmy.goto(left+50, current_y+50)
-
-def draw_row():
-    x, y = timmy.position()
-    right_limit = screen.window_width() // 2
-    print(right_limit)
-    while x < right_limit:
-        timmy.dot(20, random_colour())
-        timmy.forward(50)
-        x = timmy.position()[0]
-
-def damien_hirst_painting():
-    timmy.penup()
-    start_at_left_bottom()
-    for _ in range(10):
-        draw_row()
-        go_to_one_row_above()
-
-damien_hirst_painting()
-
-turtle.done()
 screen.exitonclick()
 
