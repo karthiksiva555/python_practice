@@ -6,7 +6,6 @@ DOWN = 270
 LEFT = 180
 RIGHT = 0
 
-
 def get_3_segment_snake():
     segments = []
     x_cor = 0
@@ -38,15 +37,15 @@ class Snake:
 
     def down(self):
         if self.head.heading() != UP:
-            self.head.setheading(270)
+            self.head.setheading(DOWN)
 
     def left(self):
         if self.head.heading() != RIGHT:
-            self.head.setheading(180)
+            self.head.setheading(LEFT)
 
     def right(self):
         if self.head.heading() != LEFT:
-            self.head.setheading(0)
+            self.head.setheading(RIGHT)
 
     def add_tail(self):
         last_segment = self.segments[-1]
