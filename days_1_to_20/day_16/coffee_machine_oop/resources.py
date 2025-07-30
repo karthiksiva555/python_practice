@@ -1,5 +1,5 @@
-from day_15.coffee_machine_data import REFILL_AMOUNT
-from day_16.coffee_machine_oop.menu import MenuItem
+from days_1_to_20.day_15.coffee_machine_data import REFILL_AMOUNT
+from days_1_to_20.day_16.coffee_machine_oop.menu import MenuItem
 
 
 class Resources:

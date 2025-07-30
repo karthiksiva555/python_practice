@@ -1,6 +1,6 @@
-from day_16.coffee_machine_oop.menu import Menu
-from day_16.coffee_machine_oop.money_machine import MoneyMachine
-from day_16.coffee_machine_oop.resources import Resources
+from days_1_to_20.day_16.coffee_machine_oop.menu import Menu
+from days_1_to_20.day_16.coffee_machine_oop.money_machine import MoneyMachine
+from days_1_to_20.day_16.coffee_machine_oop.resources import Resources
 from art import logo, coffee_mug
 
 class CoffeeMachine:
