@@ -19,5 +19,6 @@ print(piano_keys[2::3])
 # Reverse the list; Result: ['g', 'f', 'e', 'd', 'c', 'b', 'a']
 print(piano_keys[::-1])
 
+# Get second and third from the tuple; Result: ('c', 'd')
 piano_keys_tuple = ("a", "b", "c", "d", "e", "f")
 print(piano_keys_tuple[2:4])
