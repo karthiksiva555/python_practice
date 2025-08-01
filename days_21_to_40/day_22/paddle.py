@@ -5,6 +5,8 @@ BOTTOM_RANGE = -300
 STEP = 20
 LEFT_PADDLE_POSITION = (-380, 0)
 RIGHT_PADDLE_POSITION = (370, 0)
+UP = "up"
+DOWN = "down"
 
 
 class Paddle(Turtle):
@@ -21,13 +23,19 @@ class Paddle(Turtle):
         self.shapesize(stretch_wid=5, stretch_len=1)
         self.penup()
         self.goto(position)
+        self.last_move = None
 
     def move_up(self):
         if not self.can_paddle_move_up():
             return
 
         new_position = (self.xcor(), self.ycor() + STEP)
+        x = new_position[0]
+        y = new_position[1]
+
+        z = x + y
         self.setposition(new_position)
+        self.last_move = UP
 
     def move_down(self):
         if not self.can_paddle_move_down():
@@ -35,6 +43,7 @@ class Paddle(Turtle):
 
         new_position = (self.xcor(), self.ycor() - STEP)
         self.setposition(new_position)
+        self.last_move = DOWN
 
     def can_paddle_move_up(self):
         if self.ycor() < TOP_RANGE:
