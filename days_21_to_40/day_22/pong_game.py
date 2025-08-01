@@ -14,14 +14,14 @@ class PongGame:
         self.left_paddle = Paddle(self.LEFT_PADDLE)
         self.right_paddle = Paddle(self.RIGHT_PADDLE)
         self.map_screen_events()
-        # self.ball = MovingBall()
+        self.ball = MovingBall()
         self.screen.update()
 
     def start_game(self):
         self.is_game_on = True
 
         while self.is_game_on:
-            # self.ball.move()
+            self.ball.move()
             self.screen.update()
 
 
