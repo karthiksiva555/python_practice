@@ -1,5 +1,8 @@
 from turtle import Turtle
 
+TOP_RANGE = 380
+BOTTOM_RANGE = -360
+STEP = 20
 LEFT_PADDLE_POSITIONS = [(-380, 20), (-380, 0), (-380, -20)]
 RIGHT_PADDLE_POSITIONS = [(370, 20), (370, 0), (370, -20)]
 
@@ -22,11 +25,30 @@ class Paddle:
             self.segments = get_paddle(RIGHT_PADDLE_POSITIONS)
 
     def move_up(self):
+        if not self.can_paddle_move_up():
+            return
+
         for segment in self.segments:
-            new_position = (segment.xcor(), segment.ycor() + 20)
+            new_position = (segment.xcor(), segment.ycor() + STEP)
             segment.setposition(new_position)
 
     def move_down(self):
+        if not self.can_paddle_move_down():
+            return
+
         for segment in self.segments:
-            new_position = (segment.xcor(), segment.ycor() - 20)
+            new_position = (segment.xcor(), segment.ycor() - STEP)
             segment.setposition(new_position)
+
+    def can_paddle_move_up(self):
+        head = self.segments[0]
+        if head.ycor() < TOP_RANGE:
+            return True
+        return False
+
+    def can_paddle_move_down(self):
+        tail = self.segments[len(self.segments)-1]
+        if tail.ycor() > BOTTOM_RANGE:
+            return True
+        return False
+
