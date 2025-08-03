@@ -1,6 +1,7 @@
 from days_21_to_40.day_22.moving_ball import MovingBall
 from days_21_to_40.day_22.paddle import Paddle
 from days_21_to_40.day_22.pong_screen import PongScreen
+from days_21_to_40.day_22.scoreboard import Scoreboard
 
 
 class PongGame:
@@ -11,6 +12,7 @@ class PongGame:
     def __init__(self):
         self.is_game_on = False
         self.screen = PongScreen()
+        self.scoreboard = Scoreboard()
         self.left_paddle = Paddle(self.LEFT_PADDLE)
         self.right_paddle = Paddle(self.RIGHT_PADDLE)
         self.map_screen_events()
@@ -24,14 +26,19 @@ class PongGame:
             self.ball.move()
             self.screen.update()
 
-            if self.is_ball_hitting_left_paddle():
+            if self.is_ball_hitting_paddle():
                 self.ball.bounce_horizontal()
 
-            if self.is_ball_hitting_right_paddle():
-                self.ball.bounce_horizontal()
-
-            if self.ball.is_hitting_side_wall():
+            if self.ball.is_hitting_left_wall():
                 self.ball.reset_position()
+                self.scoreboard.increment_right_score()
+
+            if self.ball.is_hitting_right_wall():
+                self.ball.reset_position()
+                self.scoreboard.increment_left_score()
+
+    def is_ball_hitting_paddle(self):
+        return self.is_ball_hitting_left_paddle() or self.is_ball_hitting_right_paddle()
 
     def is_ball_hitting_left_paddle(self):
         left_paddle_position = self.left_paddle.get_position()

@@ -30,10 +30,6 @@ class MovingBall(Turtle):
         self.goto(0, 0)
         self.bounce_horizontal()
 
-    def is_hitting_side_wall(self):
-        current_position = Position(x=self.xcor(), y=self.ycor())
-        return self.is_hitting_left_wall(current_position) or self.is_hitting_right_wall(current_position)
-
     def is_hitting_position(self, position):
         return self.distance(position) <= 50 and (self.xcor() <= -360 or self.xcor() >= 360)
 
@@ -55,8 +51,8 @@ class MovingBall(Turtle):
     def is_hitting_bottom_wall(self, current_position):
         return current_position.y <= self.LOWER_LIMIT
 
-    def is_hitting_left_wall(self, current_position):
-        return current_position.x <= self.LEFT_LIMIT
+    def is_hitting_left_wall(self):
+        return self.xcor() <= self.LEFT_LIMIT
 
-    def is_hitting_right_wall(self, current_position):
-        return current_position.x >= self.RIGHT_LIMIT
+    def is_hitting_right_wall(self):
+        return self.xcor() >= self.RIGHT_LIMIT
