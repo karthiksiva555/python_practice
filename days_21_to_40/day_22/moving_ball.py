@@ -1,19 +1,20 @@
 from turtle import Turtle
 import time
-from collections import namedtuple
-
-Position = namedtuple('Position', ['x', 'y'])
+from models import Position
 
 class MovingBall(Turtle):
 
-    STEP = 5
+    STEP = 10
     UPPER_LIMIT = 380
     LOWER_LIMIT = -380
+    LEFT_LIMIT = -380
+    RIGHT_LIMIT = 380
 
     def __init__(self):
         super().__init__()
         self.shape("circle")
         self.color("white")
+        self.speed("fastest")
         self.penup()
         self.goto(-200, 200)
         self.x_step = self.STEP
@@ -25,13 +26,37 @@ class MovingBall(Turtle):
         new_position = self.get_new_position(current_position)
         self.setposition(new_position)
 
-    def get_new_position(self, current_position):
+    def reset_position(self):
+        self.goto(0, 0)
+        self.bounce_horizontal()
 
-        # if ball hits up or bottom wall, bounce
-        if self.is_ball_hitting_wall(current_position):
-            self.y_step = self.y_step * -1
+    def is_hitting_side_wall(self):
+        current_position = Position(x=self.xcor(), y=self.ycor())
+        return self.is_hitting_left_wall(current_position) or self.is_hitting_right_wall(current_position)
+
+    def is_hitting_position(self, position):
+        return self.distance(position) <= 50 and (self.xcor() <= -360 or self.xcor() >= 360)
+
+    def bounce_horizontal(self):
+        self.x_step *= -1
+
+    def bounce_vertical(self):
+        self.y_step *= -1
+
+    def get_new_position(self, current_position):
+        if self.is_hitting_top_wall(current_position) or self.is_hitting_bottom_wall(current_position):
+            self.bounce_vertical()
 
         return current_position.x + self.x_step, current_position.y + self.y_step
 
-    def is_ball_hitting_wall(self, current_position):
-        return current_position.y + self.y_step >= self.UPPER_LIMIT or current_position.y + self.y_step <= self.LOWER_LIMIT
+    def is_hitting_top_wall(self, current_position):
+        return current_position.y >= self.UPPER_LIMIT
+
+    def is_hitting_bottom_wall(self, current_position):
+        return current_position.y <= self.LOWER_LIMIT
+
+    def is_hitting_left_wall(self, current_position):
+        return current_position.x <= self.LEFT_LIMIT
+
+    def is_hitting_right_wall(self, current_position):
+        return current_position.x >= self.RIGHT_LIMIT

@@ -24,6 +24,22 @@ class PongGame:
             self.ball.move()
             self.screen.update()
 
+            if self.is_ball_hitting_left_paddle():
+                self.ball.bounce_horizontal()
+
+            if self.is_ball_hitting_right_paddle():
+                self.ball.bounce_horizontal()
+
+            if self.ball.is_hitting_side_wall():
+                self.ball.reset_position()
+
+    def is_ball_hitting_left_paddle(self):
+        left_paddle_position = self.left_paddle.get_position()
+        return self.ball.is_hitting_position(left_paddle_position)
+
+    def is_ball_hitting_right_paddle(self):
+        right_paddle_position = self.right_paddle.get_position()
+        return self.ball.is_hitting_position(right_paddle_position)
 
     def stop_game(self):
         self.is_game_on = False

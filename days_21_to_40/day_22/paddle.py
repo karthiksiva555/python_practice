@@ -1,4 +1,5 @@
 from turtle import Turtle
+from models import Position
 
 TOP_RANGE = 340
 BOTTOM_RANGE = -300
@@ -54,4 +55,7 @@ class Paddle(Turtle):
         if self.ycor() >= BOTTOM_RANGE:
             return True
         return False
+
+    def get_position(self):
+        return Position(x=self.xcor(), y=self.ycor())
 
