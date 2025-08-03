@@ -28,6 +28,7 @@ class PongGame:
 
             if self.is_ball_hitting_paddle():
                 self.ball.bounce_horizontal()
+                self.ball.increase_ball_speed()
 
             if self.ball.is_hitting_left_wall():
                 self.ball.reset_position()

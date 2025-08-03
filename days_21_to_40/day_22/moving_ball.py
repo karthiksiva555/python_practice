@@ -9,6 +9,7 @@ class MovingBall(Turtle):
     LOWER_LIMIT = -380
     LEFT_LIMIT = -380
     RIGHT_LIMIT = 380
+    MOVE_SPEED = 0.1
 
     def __init__(self):
         super().__init__()
@@ -19,9 +20,10 @@ class MovingBall(Turtle):
         self.goto(-200, 200)
         self.x_step = self.STEP
         self.y_step = self.STEP
+        self.move_speed = self.MOVE_SPEED
 
     def move(self):
-        time.sleep(0.1)
+        time.sleep(self.move_speed)
         current_position = Position(x=self.xcor(), y=self.ycor())
         new_position = self.get_new_position(current_position)
         self.setposition(new_position)
@@ -29,9 +31,13 @@ class MovingBall(Turtle):
     def reset_position(self):
         self.goto(0, 0)
         self.bounce_horizontal()
+        self.move_speed = self.MOVE_SPEED
+
+    def increase_ball_speed(self):
+        self.move_speed *= 0.9
 
     def is_hitting_position(self, position):
-        return self.distance(position) <= 50 and (self.xcor() <= -360 or self.xcor() >= 360)
+        return self.distance(position) <= 50 and (self.xcor() <= -360 or self.xcor() >= 350)
 
     def bounce_horizontal(self):
         self.x_step *= -1
