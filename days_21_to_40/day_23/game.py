@@ -1,4 +1,5 @@
-from days_21_to_40.day_23.CrossingTurtle import CrossingTurtle
+from days_21_to_40.day_23.crossing_turtle import CrossingTurtle
+from days_21_to_40.day_23.vehicle import Vehicle
 from game_screen import GameScreen
 from message import Message
 
@@ -7,6 +8,7 @@ class Game:
     def __init__(self):
         self.screen = GameScreen()
         self.crossing_turtle = CrossingTurtle()
+        self.vehicle = Vehicle(2, "red")
         self.message = Message()
         self.map_key_events()
         self.screen.update()
@@ -16,6 +18,8 @@ class Game:
         self.is_game_on = True
 
         while self.is_game_on:
+            self.vehicle.move()
+
             self.screen.update()
 
             # sample message
