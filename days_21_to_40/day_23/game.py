@@ -1,14 +1,17 @@
+import time
+
 from days_21_to_40.day_23.crossing_turtle import CrossingTurtle
-from days_21_to_40.day_23.vehicle import Vehicle
 from game_screen import GameScreen
 from message import Message
+from vehicle_manager import VehicleManager
 
 
 class Game:
+
     def __init__(self):
         self.screen = GameScreen()
         self.crossing_turtle = CrossingTurtle()
-        self.vehicle = Vehicle(2, "red")
+        self.vehicle_manager = VehicleManager()
         self.message = Message()
         self.map_key_events()
         self.screen.update()
@@ -18,12 +21,10 @@ class Game:
         self.is_game_on = True
 
         while self.is_game_on:
-            self.vehicle.move()
-
+            time.sleep(0.1)
+            self.vehicle_manager.add_vehicle_random()
+            self.vehicle_manager.move_vehicles()
             self.screen.update()
-
-            # sample message
-            self.message.show_message("Game started!")
 
             if self.crossing_turtle.did_cross_traffic():
                 self.message.show_message("You Won!")
