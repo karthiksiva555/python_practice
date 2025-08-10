@@ -1,5 +1,4 @@
 import time
-
 from days_21_to_40.day_23.crossing_turtle import CrossingTurtle
 from game_screen import GameScreen
 from message import Message
@@ -26,8 +25,14 @@ class Game:
             self.vehicle_manager.move_vehicles()
             self.screen.update()
 
+            if self.vehicle_manager.any_vehicle_colliding(self.crossing_turtle.get_current_position()):
+                self.message.show_message("Game Over.")
+                self.is_game_on = False
+
             if self.crossing_turtle.did_cross_traffic():
                 self.message.show_message("You Won!")
+        else:
+            self.screen.exit_on_click()
 
     def stop(self):
         self.is_game_on = False

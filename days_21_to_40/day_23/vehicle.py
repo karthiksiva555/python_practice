@@ -1,5 +1,6 @@
 from turtle import Turtle
 import random
+from models import Position
 
 START_X = 400
 LEFT_LIMIT = -450
@@ -7,10 +8,10 @@ STEP = 10
 
 
 class Vehicle(Turtle):
-    def __init__(self, size, color):
+    def __init__(self, color):
         super().__init__()
         self.shape("square")
-        self.shapesize(stretch_len=size, stretch_wid=1)
+        self.shapesize(stretch_len=2, stretch_wid=1)
         self.color(color)
         self.penup()
         self.goto_start()
@@ -28,3 +29,6 @@ class Vehicle(Turtle):
 
     def is_vehicle_out_of_range(self):
         return self.xcor() < LEFT_LIMIT
+
+    def is_colliding_with(self, position:Position):
+        return self.distance((position.x, position.y)) < 25

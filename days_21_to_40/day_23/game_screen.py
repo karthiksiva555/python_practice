@@ -31,3 +31,6 @@ class GameScreen:
 
     def bye(self):
         self.screen.bye()
+
+    def exit_on_click(self):
+        self.screen.exitonclick()

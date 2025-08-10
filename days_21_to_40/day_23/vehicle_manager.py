@@ -1,5 +1,6 @@
 import random
 from vehicle import Vehicle
+from models import Position
 
 COLORS = ["white", "red", "blue", "purple", "green", "yellow", "orange"]
 
@@ -15,9 +16,8 @@ class VehicleManager:
             self.add_vehicle()
 
     def add_vehicle(self):
-        vehicle_size = random.randint(2, 4)
         vehicle_color = random.choice(COLORS)
-        vehicle = Vehicle(vehicle_size, vehicle_color)
+        vehicle = Vehicle(vehicle_color)
         self.vehicles.append(vehicle)
 
     def move_vehicles(self):
@@ -26,3 +26,9 @@ class VehicleManager:
             if vehicle.is_vehicle_out_of_range():
                 self.vehicles.remove(vehicle)
 
+    def any_vehicle_colliding(self, position: Position):
+        for vehicle in self.vehicles:
+            if vehicle.is_colliding_with(position):
+                return True
+
+        return False

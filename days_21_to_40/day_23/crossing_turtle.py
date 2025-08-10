@@ -1,5 +1,6 @@
 from turtle import Turtle
 import random
+from models import Position
 
 class CrossingTurtle(Turtle):
 
@@ -40,3 +41,6 @@ class CrossingTurtle(Turtle):
 
     def did_cross_traffic(self):
         return self.ycor() >= self.UPPER_LIMIT
+
+    def get_current_position(self):
+        return Position(x=self.xcor(), y=self.ycor())
