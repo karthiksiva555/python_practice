@@ -1,5 +1,6 @@
 import time
 from days_21_to_40.day_23.crossing_turtle import CrossingTurtle
+from days_21_to_40.day_23.level_tracker import LevelTracker
 from game_screen import GameScreen
 from message import Message
 from vehicle_manager import VehicleManager
@@ -11,6 +12,7 @@ class Game:
         self.screen = GameScreen()
         self.crossing_turtle = CrossingTurtle()
         self.vehicle_manager = VehicleManager()
+        self.level_tracker = LevelTracker()
         self.message = Message()
         self.map_key_events()
         self.screen.update()
@@ -31,7 +33,7 @@ class Game:
 
             if self.crossing_turtle.is_at_finish_line():
                 self.crossing_turtle.goto_random_start_position()
-                self.message.show_message_left_top("Level 2")
+                self.level_tracker.level_up()
                 self.vehicle_manager.level_up()
         else:
             self.screen.exit_on_click()
