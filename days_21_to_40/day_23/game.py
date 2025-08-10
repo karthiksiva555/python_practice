@@ -26,11 +26,13 @@ class Game:
             self.screen.update()
 
             if self.vehicle_manager.any_vehicle_colliding(self.crossing_turtle.get_current_position()):
-                self.message.show_message("Game Over.")
+                self.message.show_message("Game Over")
                 self.is_game_on = False
 
-            if self.crossing_turtle.did_cross_traffic():
-                self.message.show_message("You Won!")
+            if self.crossing_turtle.is_at_finish_line():
+                self.crossing_turtle.goto_random_start_position()
+                self.message.show_message_left_top("Level 2")
+                self.vehicle_manager.level_up()
         else:
             self.screen.exit_on_click()
 

@@ -39,7 +39,7 @@ class CrossingTurtle(Turtle):
         if self.xcor() + self.STEP <= self.RIGHT_LIMIT:
             self.goto(self.xcor() + self.STEP, self.ycor())
 
-    def did_cross_traffic(self):
+    def is_at_finish_line(self):
         return self.ycor() >= self.UPPER_LIMIT
 
     def get_current_position(self):

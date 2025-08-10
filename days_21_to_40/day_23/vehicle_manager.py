@@ -8,6 +8,7 @@ class VehicleManager:
 
     def __init__(self):
         self.vehicles = []
+        self.vehicle_speed = 10
 
     def add_vehicle_random(self):
         random_dice = random.randint(1, 6)
@@ -22,7 +23,7 @@ class VehicleManager:
 
     def move_vehicles(self):
         for vehicle in self.vehicles:
-            vehicle.move()
+            vehicle.move(self.vehicle_speed)
             if vehicle.is_vehicle_out_of_range():
                 self.vehicles.remove(vehicle)
 
@@ -32,3 +33,6 @@ class VehicleManager:
                 return True
 
         return False
+
+    def level_up(self):
+        self.vehicle_speed += 2
