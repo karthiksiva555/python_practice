@@ -6,6 +6,7 @@ def get_invitees_list():
     """Returns invited members list from the file invited_names.txt"""
     with open(INVITED_NAMES_PATH) as file:
         names = file.read().splitlines()
+        # names = file.readlines() # needs strip on each line
         return names
 
 def get_letter_template():
@@ -23,18 +24,16 @@ def write_to_file(file_name, content):
         file.write(content)
 
 def generate_letter(invitee_name, base_letter):
-    content = get_letter_content_for(invitee_name, base_letter)
-    file_name = f"letter_for_{invitee_name}"
-    write_to_file(file_name, content)
-
-def get_letter_content_for(invitee_name: str, base_letter: str):
+    """Generates a single letter for the given invitee."""
     letter_content = base_letter.replace("[name]", invitee_name)
-    return letter_content
+    file_name = f"letter_for_{invitee_name}"
+    write_to_file(file_name, letter_content)
 
 invitees = get_invitees_list()
 letter_template = get_letter_template()
 
 for invitee in invitees:
+    # invitee.strip() is not needed, as splitlines() already did it for us
     generate_letter(invitee, letter_template)
 
 print(f"letter generation completed for all invitees!")
