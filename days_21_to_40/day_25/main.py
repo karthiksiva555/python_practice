@@ -69,6 +69,12 @@ print(weather_data.temp)
 monday = weather_data[weather_data.day == "Monday"]
 print(f"The weather data for Monday:\n{monday}")
 
+monday_temp = monday.temp
+print(f"Monday temperature: {monday_temp}")
+
+monday_temp = monday.temp.item()
+print(f"Monday temperature: {monday_temp}")
+
 # day with max temperature
 day_data = weather_data[weather_data.temp == weather_data.temp.max()]
 print(day_data.day)
