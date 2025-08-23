@@ -10,7 +10,7 @@ class UsaStatesGame:
     def __init__(self):
         self.screen = turtle.Screen()
         self.setup_screen()
-        self.state_coordinates = pandas.read_csv(self.COORDINATES_PATH)
+        self.usa_states = pandas.read_csv(self.COORDINATES_PATH)
         self.answered_states = []
         self.continue_game = False
 
@@ -24,8 +24,9 @@ class UsaStatesGame:
 
         while self.continue_game:
             user_input = self.get_user_input()
-            if user_input is None:
+            if user_input is None or user_input == "Exit":
                 self.continue_game = False
+                self.generate_unanswered_states()
             else:
                 self.process_user_input(user_input)
                 if len(self.answered_states) >= 50:
@@ -35,15 +36,19 @@ class UsaStatesGame:
         answered_count = len(self.answered_states)
         title = f"{answered_count}/50 States Correct"
         choice = self.screen.textinput(title=title, prompt="What is the other state's name?")
-        return choice
+        return choice.title() if choice is not None else None
 
     def process_user_input(self, user_input):
-        state_details = self.state_coordinates[self.state_coordinates["state"] == user_input]
+        state_details = self.usa_states[self.usa_states["state"] == user_input]
         if not state_details.empty:
             state_name = state_details.state.item()
             coordinates = (state_details.x.item(), state_details.y.item())
             self.set_answered_state(state_name, coordinates)
             self.answered_states.append(state_name)
+
+    def generate_unanswered_states(self):
+        unanswered_states = self.usa_states[~self.usa_states["state"].isin(self.answered_states)]
+        unanswered_states.to_csv("unanswered_states.csv")
 
     @staticmethod
     def set_answered_state(state_name, coordinates):
