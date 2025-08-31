@@ -11,13 +11,16 @@ window.minsize(width=500, height=300)
 label = Label(text="I am a Label", font=("Arial", 24, "bold"))
 label.pack()
 
-label["text"] = "I am a new Label"
-label.config(text="I am another label")
+# Edit a property of an already created widget
+# label["text"] = "I am a new Label"
+# label.config(text="I am another label")
 
 def button_clicked():
-    print("button clicked")
+    # print("button clicked")
+    label.config(text="Button got clicked!")
 
 button = Button(text="Click Me", command=button_clicked)
 button.pack()
+
 
 window.mainloop() # to keep the window open
