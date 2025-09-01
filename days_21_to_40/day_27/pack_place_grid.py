@@ -3,8 +3,10 @@ from tkinter import *
 window = Tk()
 window.title("Pack Place Grid")
 window.minsize(height=400, width=400)
+window.config(padx=20, pady=20)
 
 label = Label(text="Place Me")
+label.config(padx=15, pady=15)
 # label.pack(side="left")
 # label.place(x=0, y=0)
 label.grid(row=0, column=0)
