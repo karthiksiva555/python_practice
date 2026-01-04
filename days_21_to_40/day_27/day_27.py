@@ -25,6 +25,7 @@ print(add(20, 30, 40 ,50, 60))
 print(add())
 
 # Unlimited Keyword Arguments
+# if add or multiply keywords are not supplied, an error will be thrown
 def calculate(n, **kwargs):
     print(kwargs) # {'add': 5, 'multiply': 10}
     n += kwargs["add"]
@@ -32,3 +33,14 @@ def calculate(n, **kwargs):
     return n
 
 print(calculate(10, add=5, multiply=10)) # 150
+
+# Unlimited keyword arguments - safe
+# No error will be thrown even if the keywords add or multiply are not supplied
+def calculate_safe(n, **kwargs):
+    print(kwargs)
+    n += kwargs.get("add", 0)
+    n *= kwargs.get("multiply", 1)
+    return n
+
+print(calculate_safe(10, add=5)) # 15
+print(calculate_safe(10, multiply=5)) # 50
